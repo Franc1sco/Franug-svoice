@@ -9,17 +9,21 @@ int pun[MAXPLAYERS + 1];
 char reason2[MAXPLAYERS + 1][128];
 int selected[MAXPLAYERS + 1];
 
+
+#define PLUGIN_VERSION	 "1.1"
+
 public Plugin:myinfo =
 {
 	name = "SM svoice",
 	author = "Franc1sco franug",
 	description = "",
-	version = "1.0",
+	version = PLUGIN_VERSION,
 	url = "http://steamcommunity.com/id/franug"
 };
 
 public OnPluginStart() 
 {
+	CreateConVar("sm_svoice_version", PLUGIN_VERSION, "", FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY);
 	RegAdminCmd("sm_svoice", DID, ADMFLAG_GENERIC);
 	
 }
