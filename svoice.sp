@@ -10,7 +10,7 @@ char reason2[MAXPLAYERS + 1][128];
 int selected[MAXPLAYERS + 1];
 
 
-#define PLUGIN_VERSION	 "1.1"
+#define PLUGIN_VERSION	 "1.2"
 
 public Plugin:myinfo =
 {
@@ -135,8 +135,21 @@ public DIDMenuHandler2(Handle:menu2, MenuAction:action, client, itemNum)
 		}
 		new Handle:menu = CreateMenu(DIDMenuHandler3);
 		SetMenuTitle(menu, "Select a reason for %N", clientt);
-		AddMenuItem(menu, "Mic spam", "Mic spam");
-		AddMenuItem(menu, "Racism", "Racism");
+		// basebans reasons
+		AddMenuItem(menu, "Abusive",			"Abusive");
+		AddMenuItem(menu, "Racism",			"Racism");
+		AddMenuItem(menu, "General cheating/exploits",	"General cheating/exploits");
+		AddMenuItem(menu, "Wallhack",			"Wallhack");
+		AddMenuItem(menu, "Aimbot",			"Aimbot");
+		AddMenuItem(menu, "Speedhacking",			"Speedhacking");
+		AddMenuItem(menu, "Mic spamming",			"Mic spamming");
+		AddMenuItem(menu, "Admin disrespect",		"Admin disrespect");
+		AddMenuItem(menu, "Camping",			"Camping");
+		AddMenuItem(menu, "Team killing",			"Team killing");
+		AddMenuItem(menu, "Unacceptable Spray",		"Unacceptable Spray");
+		AddMenuItem(menu, "Breaking Server Rules",		"Breaking Server Rules");
+		AddMenuItem(menu, "Other",				"Other");
+		//
 		SetMenuExitButton(menu, true);
 		DisplayMenu(menu, client, 0);
 		
@@ -168,8 +181,15 @@ public DIDMenuHandler3(Handle:menu2, MenuAction:action, client, itemNum)
 		}
 		new Handle:menu = CreateMenu(DIDMenuHandler4);
 		SetMenuTitle(menu, "Select time for %N", clientt);
-		AddMenuItem(menu, "10", "10 min");
-		AddMenuItem(menu, "30", "30 min");
+		// basebans time
+		AddMenuItem(menu, "0", "Permanent");
+		AddMenuItem(menu, "10", "10 Minutes");
+		AddMenuItem(menu, "30", "30 Minutes");
+		AddMenuItem(menu, "60", "1 Hour");
+		AddMenuItem(menu, "240", "4 Hours");
+		AddMenuItem(menu, "1440", "1 Day");
+		AddMenuItem(menu, "10080", "1 Week");
+		//
 		SetMenuExitButton(menu, true);
 		DisplayMenu(menu, client, 0);
 		
