@@ -8,9 +8,11 @@ bool speaking[MAXPLAYERS + 1];
 int pun[MAXPLAYERS + 1];
 char reason2[MAXPLAYERS + 1][128];
 int selected[MAXPLAYERS + 1];
+Handle cvar_time;
+float g_time;
 
 
-#define PLUGIN_VERSION	 "1.2"
+#define PLUGIN_VERSION	 "1.3"
 
 public Plugin:myinfo =
 {
@@ -26,6 +28,16 @@ public OnPluginStart()
 	CreateConVar("sm_svoice_version", PLUGIN_VERSION, "", FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY);
 	RegAdminCmd("sm_svoice", DID, ADMFLAG_GENERIC);
 	
+	cvar_time = CreateConVar("sm_svoice_time", "5.0", "the last X seconds talking for appear in the menu");
+	g_time = GetConVarFloat(cvar_time);
+	
+	HookConVarChange(cvar_time, CVarChange);
+	
+}
+
+public CVarChange(Handle:convar, const String:oldValue[], const String:newValue[]) {
+
+	g_time = StringToFloat(newValue);
 }
 
 public OnClientDisconnect(client)
@@ -55,7 +67,7 @@ public OnClientSpeakingEnd(client)
 		KillTimer(timers[client]);
 		timers[client] = INVALID_HANDLE;
 	}
-	timers[client] = CreateTimer(5.0, end, client);
+	timers[client] = CreateTimer(g_time, end, client);
 }
 
 public Action end(Handle timer, any client)
